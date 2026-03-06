@@ -28,4 +28,25 @@ class NearbyRequest extends FormRequest
             'per_page' => ['nullable', 'integer', 'min:1', 'max:100'],
         ];
     }
+
+    /**
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'lat.required' => 'Le parametre lat est obligatoire.',
+            'lat.numeric' => 'Le parametre lat doit etre numerique.',
+            'lat.between' => 'Le parametre lat doit etre compris entre -90 et 90.',
+            'lng.required' => 'Le parametre lng est obligatoire.',
+            'lng.numeric' => 'Le parametre lng doit etre numerique.',
+            'lng.between' => 'Le parametre lng doit etre compris entre -180 et 180.',
+            'radius_km.numeric' => 'Le parametre radius_km doit etre numerique.',
+            'radius_km.min' => 'Le parametre radius_km doit etre superieur ou egal a 0.1.',
+            'radius_km.max' => 'Le parametre radius_km ne doit pas depasser 100.',
+            'per_page.integer' => 'Le parametre per_page doit etre un entier.',
+            'per_page.min' => 'Le parametre per_page doit etre superieur ou egal a 1.',
+            'per_page.max' => 'Le parametre per_page ne doit pas depasser 100.',
+        ];
+    }
 }

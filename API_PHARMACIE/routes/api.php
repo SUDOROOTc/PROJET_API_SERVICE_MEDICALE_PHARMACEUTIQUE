@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\V1\MedicamentController;
 use App\Http\Controllers\Api\V1\PharmacyController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function (): void {
+Route::prefix('v1')->middleware(['firebase.auth', 'throttle:api'])->group(function (): void {
     Route::get('/pharmacies', [PharmacyController::class, 'index']);
     Route::get('/pharmacies/on-duty', [PharmacyController::class, 'onDuty']);
     Route::get('/pharmacies/nearby', [PharmacyController::class, 'nearby']);

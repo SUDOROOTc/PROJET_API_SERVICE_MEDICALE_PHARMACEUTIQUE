@@ -26,4 +26,18 @@ class IndexRequest extends FormRequest
             'city' => ['nullable', 'string', 'max:120'],
         ];
     }
+
+    /**
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'per_page.integer' => 'Le parametre per_page doit etre un entier.',
+            'per_page.min' => 'Le parametre per_page doit etre superieur ou egal a 1.',
+            'per_page.max' => 'Le parametre per_page ne doit pas depasser 100.',
+            'city.string' => 'Le parametre city doit etre une chaine de caracteres.',
+            'city.max' => 'Le parametre city ne doit pas depasser 120 caracteres.',
+        ];
+    }
 }

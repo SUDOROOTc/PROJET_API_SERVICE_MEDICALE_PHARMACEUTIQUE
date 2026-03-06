@@ -19,6 +19,7 @@ class Pharmacy extends Model
         'name',
         'address',
         'city',
+        'groupe',
         'phone',
         'latitude',
         'longitude',
@@ -37,3 +38,4 @@ class Pharmacy extends Model
             ->withTimestamps();
     }
 }
+ 

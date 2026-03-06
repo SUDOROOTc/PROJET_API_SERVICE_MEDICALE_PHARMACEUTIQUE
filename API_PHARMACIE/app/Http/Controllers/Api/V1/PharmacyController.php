@@ -21,12 +21,12 @@ class PharmacyController extends BaseApiController
         $perPage = (int) $request->integer('per_page', 15);
         $pharmacies = $query->orderBy('name')->paginate($perPage)->withQueryString();
 
-        return $this->paginated($pharmacies, 'Pharmacies list loaded successfully.');
+        return $this->paginated($pharmacies, 'Liste des pharmacies chargee avec succes.');
     }
 
     public function show(Pharmacy $pharmacy): JsonResponse
     {
-        return $this->success($pharmacy, 'Pharmacy details loaded successfully.');
+        return $this->success($pharmacy, 'Details de la pharmacie charges avec succes.');
     }
 
     public function onDuty(IndexRequest $request): JsonResponse
@@ -38,7 +38,7 @@ class PharmacyController extends BaseApiController
             ->paginate($perPage)
             ->withQueryString();
 
-        return $this->paginated($pharmacies, 'On-duty pharmacies loaded successfully.');
+        return $this->paginated($pharmacies, 'Liste des pharmacies de garde chargee avec succes.');
     }
 
     public function nearby(NearbyRequest $request): JsonResponse
@@ -60,6 +60,6 @@ class PharmacyController extends BaseApiController
 
         $pharmacies = $query->paginate($perPage)->withQueryString();
 
-        return $this->paginated($pharmacies, 'Nearby pharmacies loaded successfully.');
+        return $this->paginated($pharmacies, 'Liste des pharmacies proches chargee avec succes.');
     }
 }

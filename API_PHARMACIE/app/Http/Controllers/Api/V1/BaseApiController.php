@@ -8,7 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class BaseApiController extends Controller
 {
-    protected function success(mixed $data, string $message = 'OK', array $meta = [], int $status = 200): JsonResponse
+    protected function success(mixed $data, string $message = 'Succes', array $meta = [], int $status = 200): JsonResponse
     {
         return response()->json([
             'success' => true,
@@ -18,7 +18,7 @@ class BaseApiController extends Controller
         ], $status);
     }
 
-    protected function paginated(LengthAwarePaginator $paginator, string $message = 'OK'): JsonResponse
+    protected function paginated(LengthAwarePaginator $paginator, string $message = 'Succes'): JsonResponse
     {
         return $this->success(
             $paginator->items(),

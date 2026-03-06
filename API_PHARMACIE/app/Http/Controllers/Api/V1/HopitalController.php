@@ -21,7 +21,7 @@ class HopitalController extends BaseApiController
         $perPage = (int) $request->integer('per_page', 15);
         $hopitaux = $query->orderBy('name')->paginate($perPage)->withQueryString();
 
-        return $this->paginated($hopitaux, 'Hospitals list loaded successfully.');
+        return $this->paginated($hopitaux, 'Liste des hopitaux chargee avec succes.');
     }
 
     public function show(Hopital $hopital): JsonResponse
@@ -30,7 +30,7 @@ class HopitalController extends BaseApiController
             $query->orderBy('name');
         }]);
 
-        return $this->success($hopital, 'Hospital details loaded successfully.');
+        return $this->success($hopital, 'Details de l\'hopital charges avec succes.');
     }
 
     public function search(SearchRequest $request): JsonResponse
@@ -45,7 +45,7 @@ class HopitalController extends BaseApiController
             ->paginate($perPage)
             ->withQueryString();
 
-        return $this->paginated($hopitaux, 'Hospital search completed successfully.');
+        return $this->paginated($hopitaux, 'Recherche d\'hopitaux effectuee avec succes.');
     }
 
     public function nearby(NearbyRequest $request): JsonResponse
@@ -67,6 +67,6 @@ class HopitalController extends BaseApiController
             ->paginate($perPage)
             ->withQueryString();
 
-        return $this->paginated($hopitaux, 'Nearby hospitals loaded successfully.');
+        return $this->paginated($hopitaux, 'Liste des hopitaux proches chargee avec succes.');
     }
 }

@@ -19,12 +19,12 @@ class MedicamentController extends BaseApiController
             ->paginate($perPage)
             ->withQueryString();
 
-        return $this->paginated($medicaments, 'Medicaments list loaded successfully.');
+        return $this->paginated($medicaments, 'Liste des medicaments chargee avec succes.');
     }
 
     public function show(Medicament $medicament): JsonResponse
     {
-        return $this->success($medicament, 'Medicament details loaded successfully.');
+        return $this->success($medicament, 'Details du medicament charges avec succes.');
     }
 
     public function search(SearchRequest $request): JsonResponse
@@ -39,7 +39,7 @@ class MedicamentController extends BaseApiController
             ->paginate($perPage)
             ->withQueryString();
 
-        return $this->paginated($medicaments, 'Medicament search completed successfully.');
+        return $this->paginated($medicaments, 'Recherche de medicaments effectuee avec succes.');
     }
 
     public function pharmacies(Medicament $medicament, IndexRequest $request): JsonResponse
@@ -52,6 +52,6 @@ class MedicamentController extends BaseApiController
             ->paginate($perPage)
             ->withQueryString();
 
-        return $this->paginated($pharmacies, 'Pharmacies for medicament loaded successfully.');
+        return $this->paginated($pharmacies, 'Pharmacies proposant ce medicament chargees avec succes.');
     }
 }

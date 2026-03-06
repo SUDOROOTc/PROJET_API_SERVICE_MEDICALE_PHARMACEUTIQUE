@@ -18,8 +18,18 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'firebase_uid',
+        'firebase_sign_in_provider',
         'name',
         'email',
+        'phone_number',
+        'avatar_url',
+        'role',
+        'is_active',
+        'last_seen_at',
+        'firebase_auth_time',
+        'firebase_raw_claims',
+        'email_verified_at',
         'password',
     ];
 
@@ -29,7 +39,6 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -42,7 +51,10 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'last_seen_at' => 'datetime',
+            'firebase_auth_time' => 'datetime',
+            'is_active' => 'boolean',
+            'firebase_raw_claims' => 'array',
         ];
     }
 }

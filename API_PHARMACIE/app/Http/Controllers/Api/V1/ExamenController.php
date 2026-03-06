@@ -19,12 +19,12 @@ class ExamenController extends BaseApiController
             ->paginate($perPage)
             ->withQueryString();
 
-        return $this->paginated($examens, 'Exams list loaded successfully.');
+        return $this->paginated($examens, 'Liste des examens chargee avec succes.');
     }
 
     public function show(Examen $examen): JsonResponse
     {
-        return $this->success($examen, 'Exam details loaded successfully.');
+        return $this->success($examen, 'Details de l\'examen charges avec succes.');
     }
 
     public function search(SearchRequest $request): JsonResponse
@@ -42,7 +42,7 @@ class ExamenController extends BaseApiController
             ->paginate($perPage)
             ->withQueryString();
 
-        return $this->paginated($examens, 'Exam search completed successfully.');
+        return $this->paginated($examens, 'Recherche d\'examens effectuee avec succes.');
     }
 
     public function hopitaux(Examen $examen, IndexRequest $request): JsonResponse
@@ -55,6 +55,6 @@ class ExamenController extends BaseApiController
             ->paginate($perPage)
             ->withQueryString();
 
-        return $this->paginated($hopitaux, 'Hospitals for exam loaded successfully.');
+        return $this->paginated($hopitaux, 'Hopitaux proposant cet examen charges avec succes.');
     }
 }
