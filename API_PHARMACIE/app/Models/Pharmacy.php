@@ -37,5 +37,6 @@ class Pharmacy extends Model
             ->withPivot(['stock_quantity', 'is_available', 'price'])
             ->withTimestamps();
     }
+
 }
  

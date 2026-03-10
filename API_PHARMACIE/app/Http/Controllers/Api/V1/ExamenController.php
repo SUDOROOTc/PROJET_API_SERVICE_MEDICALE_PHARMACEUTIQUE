@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Requests\Api\V1\IndexRequest;
 use App\Http\Requests\Api\V1\SearchRequest;
 use App\Models\Examen;
+use App\Models\Hopital;
 use Illuminate\Http\JsonResponse;
 
 class ExamenController extends BaseApiController
@@ -45,16 +46,36 @@ class ExamenController extends BaseApiController
         return $this->paginated($examens, 'Recherche d\'examens effectuee avec succes.');
     }
 
-    public function hopitaux(Examen $examen, IndexRequest $request): JsonResponse
+    public function hopitauxParNom(string $examenNom, IndexRequest $request): JsonResponse
     {
+        $examenNom = trim($examenNom);
+
+        if (mb_strlen($examenNom) < 2) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Le nom de l\'examen doit contenir au moins 2 caracteres.',
+                'errors' => [
+                    'examenNom' => ['Le parametre examenNom est invalide.'],
+                ],
+            ], 422);
+        }
+
         $perPage = (int) $request->integer('per_page', 15);
 
-        $hopitaux = $examen->hopitaux()
-            ->wherePivot('is_available', true)
-            ->orderBy('hopitaux.name')
+        $hopitaux = Hopital::query()
+            ->whereHas('examens', function ($query) use ($examenNom): void {
+                $query->where('examens.name', 'like', '%'.$examenNom.'%')
+                    ->where('examen_hopital.is_available', true);
+            })
+            ->with(['examens' => function ($query) use ($examenNom): void {
+                $query->where('examens.name', 'like', '%'.$examenNom.'%')
+                    ->wherePivot('is_available', true)
+                    ->orderBy('examens.name');
+            }])
+            ->orderBy('name')
             ->paginate($perPage)
             ->withQueryString();
 
-        return $this->paginated($hopitaux, 'Hopitaux proposant cet examen charges avec succes.');
+        return $this->paginated($hopitaux, 'Hopitaux proposant l\'examen demande charges avec succes.');
     }
 }

@@ -24,6 +24,7 @@ class Hopital extends Model
      */
     protected $fillable = [
         'name',
+        'categorie',
         'address',
         'city',
         'phone',

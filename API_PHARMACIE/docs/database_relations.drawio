@@ -1,86 +1,85 @@
-<mxfile host="app.diagrams.net" modified="2026-03-05T12:00:00.000Z" agent="5.0 (Windows)" version="24.7.17" editor="draw.io">
-  <diagram id="db-relations" name="Database Relations">
-    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
-      <root>
-        <mxCell id="0"/>
-        <mxCell id="1" parent="0"/>
-
-        <mxCell id="users" value="users&#xa;PK id&#xa;firebase_uid (unique)&#xa;name&#xa;email&#xa;role&#xa;is_active&#xa;last_seen_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
-          <mxGeometry x="40" y="40" width="220" height="120" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="sessions" value="sessions&#xa;PK id&#xa;FK user_id -> users.id&#xa;ip_address&#xa;payload" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="40" y="210" width="220" height="120" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="password_reset_tokens" value="password_reset_tokens&#xa;PK email&#xa;token&#xa;created_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
-          <mxGeometry x="40" y="370" width="220" height="110" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="pharmacies" value="pharmacies&#xa;PK id&#xa;name&#xa;city&#xa;latitude, longitude&#xa;is_on_duty" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="360" y="40" width="240" height="130" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="medicaments" value="medicaments&#xa;PK id&#xa;name&#xa;dosage&#xa;form&#xa;is_active" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="760" y="40" width="240" height="130" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="medicament_pharmacy" value="medicament_pharmacy (pivot)&#xa;PK id&#xa;FK medicament_id -> medicaments.id&#xa;FK pharmacy_id -> pharmacies.id&#xa;stock_quantity&#xa;is_available&#xa;price" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="530" y="220" width="300" height="170" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="hopitaux" value="hopitaux&#xa;PK id&#xa;name&#xa;city&#xa;latitude, longitude&#xa;emergency_available" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="360" y="470" width="240" height="130" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="examens" value="examens&#xa;PK id&#xa;name&#xa;category&#xa;is_active" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
-          <mxGeometry x="760" y="470" width="240" height="130" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="examen_hopital" value="examen_hopital (pivot)&#xa;PK id&#xa;FK examen_id -> examens.id&#xa;FK hopital_id -> hopitaux.id&#xa;is_available&#xa;preparation_notes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
-          <mxGeometry x="530" y="650" width="300" height="160" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="cache" value="cache&#xa;PK key&#xa;value&#xa;expiration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="40" width="210" height="100" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="cache_locks" value="cache_locks&#xa;PK key&#xa;owner&#xa;expiration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="170" width="210" height="100" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="jobs" value="jobs&#xa;PK id&#xa;queue&#xa;payload&#xa;attempts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="330" width="210" height="100" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="job_batches" value="job_batches&#xa;PK id&#xa;name&#xa;total_jobs&#xa;failed_jobs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="460" width="210" height="100" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="failed_jobs" value="failed_jobs&#xa;PK id&#xa;uuid&#xa;payload&#xa;exception" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="1080" y="590" width="210" height="100" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="sessions" target="users">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="medicament_pharmacy" target="pharmacies">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="medicament_pharmacy" target="medicaments">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="examen_hopital" target="hopitaux">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="examen_hopital" target="examens">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
+<mxfile host="65bd71144e">
+    <diagram id="db-relations" name="Database Relations">
+        <mxGraphModel dx="3472" dy="1743" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="users" value="users&#xa;PK id&#xa;firebase_uid (unique)&#xa;name&#xa;email&#xa;role&#xa;is_active&#xa;last_seen_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="-100" y="20" width="220" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="sessions" value="sessions&#xa;PK id&#xa;FK user_id -&gt; users.id&#xa;ip_address&#xa;payload" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="-100" y="210" width="220" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="password_reset_tokens" value="password_reset_tokens&#xa;PK email&#xa;token&#xa;created_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="-110" y="380" width="220" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="pharmacies" value="pharmacies&#xa;PK id&#xa;name&#xa;city&#xa;groupe&#xa;latitude, longitude&#xa;is_on_duty" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="-30" width="240" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="medicaments" value="medicaments&#xa;PK id&#xa;name&#xa;dosage&#xa;form&#xa;is_active" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="760" width="240" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="medicament_pharmacy" value="medicament_pharmacy (pivot)&#xa;PK id&#xa;FK medicament_id -&gt; medicaments.id&#xa;FK pharmacy_id -&gt; pharmacies.id&#xa;stock_quantity&#xa;is_available&#xa;price" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="700" y="185" width="300" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="groupes_garde" value="groupes_garde&#xa;PK id&#xa;nom&#xa;ville&#xa;description" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="370" width="200" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="groupe_garde_pharmacie" value="groupe_garde_pharmacie (pivot)&#xa;PK id&#xa;FK groupe_garde_id -&gt; groupes_garde.id&#xa;FK pharmacy_id -&gt; pharmacies.id" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="530" width="300" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="plannings_garde" value="plannings_garde&#xa;PK id&#xa;FK groupe_garde_id -&gt; groupes_garde.id&#xa;debut_garde&#xa;fin_garde&#xa;actif&#xa;notes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="-50" y="650" width="260" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="hopitaux" value="hopitaux&#xa;PK id&#xa;name&#xa;city&#xa;latitude, longitude&#xa;emergency_available" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="350" y="820" width="240" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="examens" value="examens&#xa;PK id&#xa;name&#xa;category&#xa;is_active" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="1065" y="715" width="240" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="examen_hopital" value="examen_hopital (pivot)&#xa;PK id&#xa;FK examen_id -&gt; examens.id&#xa;FK hopital_id -&gt; hopitaux.id&#xa;is_available&#xa;preparation_notes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="650" y="700" width="300" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="cache" value="cache&#xa;PK key&#xa;value&#xa;expiration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="40" width="210" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="cache_locks" value="cache_locks&#xa;PK key&#xa;owner&#xa;expiration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="170" width="210" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="jobs" value="jobs&#xa;PK id&#xa;queue&#xa;payload&#xa;attempts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="330" width="210" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="job_batches" value="job_batches&#xa;PK id&#xa;name&#xa;total_jobs&#xa;failed_jobs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="460" width="210" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="failed_jobs" value="failed_jobs&#xa;PK id&#xa;uuid&#xa;payload&#xa;exception" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+                    <mxGeometry x="1080" y="590" width="210" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="sessions" target="users" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="medicament_pharmacy" target="pharmacies" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="medicament_pharmacy" target="medicaments" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="examen_hopital" target="hopitaux" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="examen_hopital" target="examens" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="groupe_garde_pharmacie" target="groupes_garde">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="groupe_garde_pharmacie" target="pharmacies">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="plannings_garde" target="groupes_garde">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
 </mxfile>

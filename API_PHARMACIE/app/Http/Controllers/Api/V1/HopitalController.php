@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Api\V1\IndexRequest;
+use App\Http\Requests\Api\V1\HopitauxParExamenRequest;
 use App\Http\Requests\Api\V1\NearbyRequest;
 use App\Http\Requests\Api\V1\SearchRequest;
 use App\Models\Hopital;
@@ -10,6 +11,28 @@ use Illuminate\Http\JsonResponse;
 
 class HopitalController extends BaseApiController
 {
+    public function parExamen(HopitauxParExamenRequest $request): JsonResponse
+    {
+        $examen = $request->string('examen')->value();
+        $perPage = (int) $request->integer('per_page', 15);
+
+        $hopitaux = Hopital::query()
+            ->whereHas('examens', function ($query) use ($examen): void {
+                $query->where('examens.name', 'like', '%'.$examen.'%')
+                    ->where('examen_hopital.is_available', true);
+            })
+            ->with(['examens' => function ($query) use ($examen): void {
+                $query->where('examens.name', 'like', '%'.$examen.'%')
+                    ->wherePivot('is_available', true)
+                    ->orderBy('examens.name');
+            }])
+            ->orderBy('name')
+            ->paginate($perPage)
+            ->withQueryString();
+
+        return $this->paginated($hopitaux, 'Liste des hopitaux pour cet examen chargee avec succes.');
+    }
+
     public function index(IndexRequest $request): JsonResponse
     {
         $query = Hopital::query();
