@@ -20,7 +20,13 @@ class Medicament extends Model
         'dosage',
         'form',
         'description',
+        'prix',
         'is_active',
+    ];
+
+    protected $casts = [
+        'prix'      => 'integer',
+        'is_active' => 'boolean',
     ];
 
     /**
